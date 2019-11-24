@@ -27,12 +27,12 @@ public String getaccesstoken(AccessTokenDto accessTokenDto) {
             String[] split = string.split("&");
             String tokenstr= split[0];
             String Token = tokenstr.split("=")[1];
-            System.out.println(Token);
+            System.out.println("this is token "+Token);
             return Token ;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return " token is null";
 }
 public GithubUserGTO getUser(String accessToken){
     OkHttpClient client = new OkHttpClient();
@@ -44,11 +44,12 @@ public GithubUserGTO getUser(String accessToken){
     try {
         Response response = client.newCall(request).execute();
         String string =response.body().string();
+        System.out.println("jason "+string);
         GithubUserGTO githubUserGTO = JSON.parseObject(string, GithubUserGTO.class);
         return  githubUserGTO;
     } catch (IOException e) {
-        e.printStackTrace();
-    }return  null;
+
+    }return  null ;
 
 
 }

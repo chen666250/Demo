@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.dto.AccessTokenDto;
+import com.example.demo.dto.GithubUserGTO;
 import com.example.demo.provider.Githubprovider;
+import okhttp3.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.invoke.MethodHandles;
 
 @Controller
@@ -25,7 +28,8 @@ public class AuthorizeController {
 
     @GetMapping ("/callback")
     public String callback(@RequestParam(name="code")String code ,
-                           @RequestParam(name="state") String state){
+                           @RequestParam(name="state") String state,
+                           HttpServletRequest httpServletRequest){
 
 
         AccessTokenDto accessTokenDto = new AccessTokenDto();
@@ -34,9 +38,18 @@ public class AuthorizeController {
         accessTokenDto.setState(state);
         accessTokenDto.setClient_id(githubid);
         accessTokenDto.setClient_secret(githubsecret);
-        githubprovider.getaccesstoken(accessTokenDto);
+        String token= githubprovider.getaccesstoken(accessTokenDto);
+        GithubUserGTO githubUserGTO =githubprovider.getUser(token);
+        System.out.println("user to str "+githubUserGTO.toString());
+        System.out.println("this is user "+githubUserGTO.getName());
+        if(githubUserGTO!=null){
+            httpServletRequest.getSession().setAttribute("user",githubUserGTO);
+            return "redirect:/";//redirect 返回的是地址
+        }else {
+            return "redirect:/";
+        }
 
-        return "index";
+
     }
 
 }
