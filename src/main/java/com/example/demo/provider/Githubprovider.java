@@ -22,7 +22,13 @@ public String getaccesstoken(AccessTokenDto accessTokenDto) {
                 .post(body)
                 .build();
         try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
+
+            String string = response.body().string();
+            String[] split = string.split("&");
+            String tokenstr= split[0];
+            String Token = tokenstr.split("=")[1];
+            System.out.println(Token);
+            return Token ;
         } catch (IOException e) {
             e.printStackTrace();
         }
