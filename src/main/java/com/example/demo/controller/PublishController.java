@@ -41,6 +41,7 @@ public class PublishController {
         model.addAttribute("topiccontext",topiccontext);
         model.addAttribute("tags",tags);
 
+
         //理论上输入校验要放到前端，但老子嫌麻烦。而且没怎么用过js。
         if(title==null ||title==""){
             model.addAttribute("error","标题不能为空");
@@ -52,16 +53,18 @@ public class PublishController {
         }
         User user = null;
         Cookie[] cookies = httpServletRequest.getCookies();
-        for (Cookie cookie:cookies) {
-            if(cookie.getName().equals("token")){
-                String token = cookie.getValue();
-                user = usermapper.findByToken(token);
-                if(user!=null){
-                    httpServletRequest.getSession().setAttribute("user",user);
-                    break;
+        if(cookies!=null&&cookies.length!=0)
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    String token = cookie.getValue();
+                    user = usermapper.findByToken(token);
+                    if (user != null) {
+                        httpServletRequest.getSession().setAttribute("user", user);
+                        break;
+                    }
                 }
             }
-        }
+
         if(user==null){
             model.addAttribute("error","用户未登录");
             return "publish";

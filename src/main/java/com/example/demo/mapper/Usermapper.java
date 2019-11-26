@@ -9,9 +9,12 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface Usermapper {
-    @Insert("insert into USERH (name,account_id,token,create_time,modify_time) values(#{name},#{account_id},#{token},#{create_time},#{modify_time})")
+    @Insert("insert into USERH (name,account_id,token,create_time,modify_time,avatar_url) values(#{name},#{account_id},#{token},#{create_time},#{modify_time},#{avatar_url})")
     void insert(User user);// mybatis 将USER传入数据库
 
     @Select("select * from USERH where token= #{token}")
     User findByToken(@Param("token") String token);
+
+    @Select(("select * from USERH where id =#{post_id}"))
+    User findById(@Param("post_id") Integer post_id );
 }

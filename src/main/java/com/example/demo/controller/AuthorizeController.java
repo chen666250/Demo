@@ -58,7 +58,8 @@ public class AuthorizeController {
             String token1 = UUID.randomUUID().toString();
             modeluser.setToken(token1);
             modeluser.setName(githubUserGTO.getName());
-            modeluser.setAccountid(String.valueOf(githubUserGTO.getId()));
+            modeluser.setAccount_id(String.valueOf(githubUserGTO.getId()));
+            modeluser.setAvatar_url(githubUserGTO.getAvatar_url());
             modeluser.setCreate_time(System.currentTimeMillis());
             modeluser.setModify_time(modeluser.getCreate_time());
             usermapper.insert(modeluser);
