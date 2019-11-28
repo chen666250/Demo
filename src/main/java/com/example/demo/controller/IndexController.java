@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.PageDto;
 import com.example.demo.dto.TopicDto;
 import com.example.demo.mapper.TopicMapper;
 import com.example.demo.mapper.Usermapper;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,9 @@ public class IndexController {
     private TopicService topicService;
 
     @GetMapping("/")
-    public String index(HttpServletRequest httpServletRequest ,Model model){
+    public String index(HttpServletRequest httpServletRequest , Model model,
+                        @RequestParam(name ="currentPage",defaultValue = "1") Integer currentPage,
+                        @RequestParam(name ="size",defaultValue = "8") Integer size){
         Cookie[] cookies = httpServletRequest.getCookies();
         if(cookies!=null&&cookies.length!=0)
             for (Cookie cookie : cookies) {
@@ -44,9 +48,9 @@ public class IndexController {
                 }
             }
 
-        List<TopicDto> topicsdtos = topicService.showall();
-        model.addAttribute("alltopics",topicsdtos);
-        System.out.println("indexcontroller "+topicsdtos.toString());
+        PageDto pageDto =topicService.showall(currentPage,size);
+            model.addAttribute("pageDto",pageDto);
+        System.out.println("this is pageDto "+pageDto);
 
 
         return "index";

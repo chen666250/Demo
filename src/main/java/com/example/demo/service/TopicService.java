@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.PageDto;
 import com.example.demo.dto.TopicDto;
 import com.example.demo.mapper.TopicMapper;
 import com.example.demo.mapper.Usermapper;
@@ -19,8 +20,20 @@ public class TopicService {
     @Autowired
     private Usermapper usermapper;
 
-    public  List<TopicDto> showall() {
-     List<Topic> topics=topicMapper.showall();
+    public   PageDto showall(Integer currentPage,Integer size) {
+        PageDto pageDto = new PageDto();
+        Integer totalCount=topicMapper.countTopics();
+        pageDto.setPage(totalCount,currentPage,size);
+        if(currentPage<1){
+            currentPage=1;
+        }
+        if(currentPage>pageDto.getTotalPages()){
+            currentPage=pageDto.getTotalPages();
+        }
+
+        Integer offset =size*(currentPage-1);
+
+        List<Topic> topics=topicMapper.showall(offset,size);
      List<TopicDto> topicsDtos =new ArrayList<>();
         for (Topic topic : topics) {
            User user= usermapper.findById(topic.getPost_id());
@@ -30,7 +43,7 @@ public class TopicService {
             topicsDtos.add(topicDto);
 
         }
-
-        return topicsDtos;
+        pageDto.setTiopics(topicsDtos);
+        return pageDto;
     }
 }
