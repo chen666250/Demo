@@ -29,24 +29,9 @@ public class profileController {
                            @RequestParam(name ="size",defaultValue = "8") Integer size){
 
 
-        Cookie[] cookies = httpServletRequest.getCookies();
-        User user = null;
-        if(cookies!=null&&cookies.length!=0){
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                  user = usermapper.findByToken(token);
-                    if (user != null) {
-                        httpServletRequest.getSession().setAttribute("user", user);
-                        httpServletRequest.getSession().setAttribute("icon",user.getAvatar_url());
-                        System.out.println("this is my avatat " + user.getAvatar_url());
-                        break;
-                    }else{
-                        httpServletRequest.getSession().setAttribute("icon",null);
-                    }
 
-                }
-            }}
+        User user = null;
+         user = (User) httpServletRequest.getSession().getAttribute("user");
         if (user==null){
             return "redirect:/";
         }

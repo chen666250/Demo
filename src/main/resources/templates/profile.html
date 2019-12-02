@@ -10,9 +10,7 @@
     <script th:src="@{twitter-bootstrap.js}"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
     <style>
-        .body {
-            background-color: #999999;
-        }
+
 
         .container-fluid {
             border: 2px solid;
@@ -36,14 +34,16 @@
             float: left;
             margin-right: 250px;
         }
-        /*.bg {*/
-        /*    background:url("pic/bg1.jpg") no-repeat center;*/
-        /*    background-size:contain;*/
+
+        body{
+            background-image: url('pic/bg2.jpg');
+            background-attachment:fixed;
+            background-position:center;
         }
     </style>
 
 </head>
-<body class="body bg" >
+<body class="body" >
 <div  th:insert="~{naviFragement::topNavi}"></div>
 
 <div class="container-fluid" style="margin-left: 80px ;margin-top: 40px;margin-right: 80px;background-color: white">
