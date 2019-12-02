@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>CSG0男人工作室</title>
+    <title th:text="${sectionTitle}"></title>
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
     <script th:src="@{/jquery/jquery-3.0.0.min.js}"></script>
     <script th:src="@{twitter-bootstrap.js}"></script>
@@ -12,7 +12,6 @@
     <style>
         .body {
             background-color: #999999;
-
         }
 
         .container-fluid {
@@ -23,7 +22,6 @@
             padding-left: 15px;
             margin-right: 30px;
             margin-left: 30px;
-
         }
 
         .media-object {
@@ -38,10 +36,14 @@
             float: left;
             margin-right: 250px;
         }
+        /*.bg {*/
+        /*    background:url("pic/bg1.jpg") no-repeat center;*/
+        /*    background-size:contain;*/
+        }
     </style>
 
 </head>
-<body class="body"  >
+<body class="body bg" >
 <div  th:insert="~{naviFragement::topNavi}"></div>
 
 <div class="container-fluid" style="margin-left: 80px ;margin-top: 40px;margin-right: 80px;background-color: white">
@@ -73,20 +75,20 @@
                         </a>
                     </li>
                     <li th:if="${pageDto.showPrevious}">
-                        <a th:href="@{/(currentPage=${pageDto.currentPage -1})}" aria-label="Previous">
+                        <a th:href="@{/personal/topics/(currentPage=${pageDto.currentPage -1})}" aria-label="Previous">
                             <span aria-hidden="true">&lt;</span>
                         </a></li>
                     <li th:each=" currentPage: ${pageDto.pages}"
                         th:class="${pageDto.currentPage == currentPage}? 'active' : '' ">
 
-                        <a th:href="@{/(currentPage=${currentPage})}" th:text="${currentPage}"></a>
+                        <a th:href="@{/personal/topics/(currentPage=${currentPage})}" th:text="${currentPage}"></a>
                     </li>
 
-                    <li th:if="${pageDto.showNext}"><a th:href="@{/(currentPage=${pageDto.currentPage +1})}"
+                    <li th:if="${pageDto.showNext}"><a th:href="@{/personal/topics/(currentPage=${pageDto.currentPage +1})}"
                                                        aria-label="Previous"><span aria-hidden="true">&gt;</span></a>
                     </li>
 
-                    <li th:if="${pageDto.showLast}"><a th:href="@{/(currentPage=${pageDto.totalPages})}"
+                    <li th:if="${pageDto.showLast}"><a th:href="@{/personal/topics/(currentPage=${pageDto.totalPages})}"
                                                        aria-label="Previous"> <span
                             aria-hidden="true">&gt;&gt;</span></a></li>
 
@@ -95,8 +97,11 @@
             </nav>
         </div>
         <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <span class=" glyphicon glyphicon-king" aria-hidden="true"
-                  style="font-size: 19px;float: left ;margin-top: 30px">本周经典节目排行榜</span>
+            <div class="list-group" style="background-color:#999999">
+                <a href="/personal/topics" class="list-group-item " th:class="${section=='topics'}? 'list-group-item active':'list-group-item'"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>我的话题</a>
+                <a href="/personal/replies" class="list-group-item" th:class="${section=='replies'}? 'list-group-item active':'list-group-item'"> <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>  我的回复</a>
+
+            </div>
 
         </div>
     </div>

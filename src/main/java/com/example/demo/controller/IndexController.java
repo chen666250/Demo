@@ -30,6 +30,7 @@ public class IndexController {
     public String index(HttpServletRequest httpServletRequest , Model model,
                         @RequestParam(name ="currentPage",defaultValue = "1") Integer currentPage,
                         @RequestParam(name ="size",defaultValue = "8") Integer size){
+
         Cookie[] cookies = httpServletRequest.getCookies();
         if(cookies!=null&&cookies.length!=0)
             for (Cookie cookie : cookies) {
@@ -39,7 +40,7 @@ public class IndexController {
                     if (user != null) {
                         httpServletRequest.getSession().setAttribute("user", user);
                         httpServletRequest.getSession().setAttribute("icon",user.getAvatar_url());
-                        System.out.println("this is my avatat " + user.getAvatar_url());
+//                        System.out.println("this is my avatat " + user.getAvatar_url());
                         break;
                     }else{
                         httpServletRequest.getSession().setAttribute("icon",null);
@@ -50,7 +51,7 @@ public class IndexController {
 
         PageDto pageDto =topicService.showall(currentPage,size);
             model.addAttribute("pageDto",pageDto);
-        System.out.println("this is pageDto "+pageDto);
+//        System.out.println("this is pageDto "+pageDto);
 
 
         return "index";

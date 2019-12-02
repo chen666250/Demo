@@ -46,4 +46,18 @@ public class TopicService {
         pageDto.setTiopics(topicsDtos);
         return pageDto;
     }
+
+    public PageDto showmyall(String account_id, Integer currentPage, Integer size) {
+        PageDto allpage=  this.showall(currentPage,size);
+        List<TopicDto> tiopics= allpage.getTiopics();
+        List<TopicDto> usertiopics = new ArrayList<TopicDto>();
+        for (TopicDto tiopic : tiopics) {
+            if(tiopic.getCreatuser().getAccount_id().equals(account_id)){
+                usertiopics.add(tiopic);
+            }
+        }
+        tiopics=null;
+        allpage.setTiopics(usertiopics);
+        return allpage;
+    }
 }
