@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>话题</title>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
+    <script th:src="@{/jquery/jquery-3.0.0.min.js}"></script>
+    <script th:src="@{twitter-bootstrap.js}"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
+
+
+
+
+    <style>
+
+
+        .container-fluid {
+            border: 0px solid;
+            border-radius: 25px;
+            -moz-border-radius: 25px;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: 30px;
+            margin-left: 30px;
+
+        }
+
+        .media-object {
+            width: 45px;
+            height: 45px;
+        }
+
+        .infos {
+            font-size: 12px;
+            font-weight: normal;
+            color: #737373;
+            float: left;
+            margin-right: 250px;
+        }
+
+        body{
+
+
+            background-attachment:fixed;
+            background-position:center;
+        }
+
+    </style>
+</head>
+<body style="background-image: url('pic/bg2.jpg')">
+<div  th:insert="~{naviFragement::topNavi}"></div>
+
+<div class="container-fluid" style="margin-left: 80px ;margin-top: 40px;margin-right: 80px;background-color: white" >
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12" >
+         <div class="media" >
+            <div class="media-left media-thumbnail">
+                <a href="#">
+
+            </a>
+            </div>
+            <div class="media-body" >
+                <h3 class="media-heading" th:text="${TopicDto2.getTitle()}"></h3>
+                <span class="infos"
+                      th:text=" '作者: '+${TopicDto2.getCreatuser().getName()} + '·回复数: '+${TopicDto2.getComment_count()}+' ·浏览数: '+${TopicDto2.getRead_count()}+'·发布时间: '+${#dates.format(TopicDto2.getCreate_time(),'dd_MMMM_yyyy')}"></span>
+                <br>
+                <span th:text="${TopicDto2.getTopiccontext()}"></span>
+
+            </div>
+             <hr>
+        </div>
+        </div>
+    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >
+        <H5>发起人：</H5>
+        <div> <img class="media-object img-circle" th:src="@{${TopicDto2.getCreatuser().getAvatar_url()}}" alt="...">
+        <a th:text="${TopicDto2.getCreatuser().getName()}"></a></div>
+        <hr>
+        <h5>相关问题:</h5>
+
+    </div>
+         </div>
+    </div>
+
+
+</body>
+</html>

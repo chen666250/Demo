@@ -20,7 +20,7 @@ public class TopicService {
     @Autowired
     private Usermapper usermapper;
 
-    public   PageDto showall(Integer currentPage,Integer size) {
+    public   PageDto showall(Integer currentPage,Integer size,Integer isDes) {
         PageDto pageDto = new PageDto();
         Integer totalCount=topicMapper.countTopics();
         pageDto.setPage(totalCount,currentPage,size);
@@ -32,8 +32,14 @@ public class TopicService {
         }
 
         Integer offset =size*(currentPage-1);
-
-        List<Topic> topics=topicMapper.showall(offset,size);
+        String des=null;
+        if(isDes!=1){
+            des="asc";
+        }else {
+            des="desc";
+        }
+        System.out.println("topservice des is " + des);
+        List<Topic> topics=topicMapper.showall(offset,size,des);
      List<TopicDto> topicsDtos =new ArrayList<>();
         for (Topic topic : topics) {
            User user= usermapper.findById(topic.getPost_id());
@@ -48,7 +54,7 @@ public class TopicService {
     }
 
     public PageDto showmyall(String account_id, Integer currentPage, Integer size) {
-        PageDto allpage=  this.showall(currentPage,size);
+        PageDto allpage=  this.showall(currentPage,size,0);
         List<TopicDto> tiopics= allpage.getTiopics();
         List<TopicDto> usertiopics = new ArrayList<TopicDto>();
         for (TopicDto tiopic : tiopics) {

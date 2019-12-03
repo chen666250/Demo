@@ -28,8 +28,10 @@ public class IndexController {
     @GetMapping("/")
     public String index( Model model,
                         @RequestParam(name ="currentPage",defaultValue = "1") Integer currentPage,
-                        @RequestParam(name ="size",defaultValue = "8") Integer size){
-        PageDto pageDto =topicService.showall(currentPage,size);
+                        @RequestParam(name ="size",defaultValue = "8") Integer size,
+                         @RequestParam(name="isDes",defaultValue = "0" ) Integer isDes){
+        PageDto pageDto =topicService.showall(currentPage,size,isDes);
+        System.out.println("isDes" +isDes );
             model.addAttribute("pageDto",pageDto);
 //        System.out.println("this is pageDto "+pageDto);
 
