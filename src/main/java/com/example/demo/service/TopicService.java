@@ -66,4 +66,8 @@ public class TopicService {
         allpage.setTiopics(usertiopics);
         return allpage;
     }
+
+    public PageDto showbySearch(String searchcontent) {
+        return null;
+    }
 }

@@ -7,6 +7,7 @@ import com.example.demo.mapper.Usermapper;
 import com.example.demo.model.Topic;
 import com.example.demo.model.User;
 import com.example.demo.service.TopicService;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import okhttp3.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class IndexController {
     public String index( Model model,
                         @RequestParam(name ="currentPage",defaultValue = "1") Integer currentPage,
                         @RequestParam(name ="size",defaultValue = "8") Integer size,
-                         @RequestParam(name="isDes",defaultValue = "0" ) Integer isDes){
+                         @RequestParam(name="isDes",defaultValue = "1" ) Integer isDes){
         PageDto pageDto =topicService.showall(currentPage,size,isDes);
         System.out.println("isDes" +isDes );
             model.addAttribute("pageDto",pageDto);
@@ -37,5 +38,15 @@ public class IndexController {
 
 
         return "index";
+    }
+
+    @GetMapping("/search")
+    public String search(Model model, @RequestParam(name ="searchcontent" ,defaultValue = "CSGO")String searchcontent){
+
+
+        PageDto result=topicService.showbySearch(searchcontent);
+        model.addAttribute("searchResult",result);
+
+        return "myhello";
     }
 }
