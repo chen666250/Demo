@@ -5,6 +5,7 @@ import com.example.demo.dto.GithubUserGTO;
 import com.example.demo.mapper.Usermapper;
 import com.example.demo.model.User;
 import com.example.demo.provider.Githubprovider;
+import com.example.demo.service.UserService;
 import okhttp3.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,6 +35,8 @@ public class AuthorizeController {
 
     @Autowired
     private Usermapper usermapper;
+    @Autowired
+    private UserService userService;
 
 
     @GetMapping ("/callback")
@@ -60,9 +63,8 @@ public class AuthorizeController {
             modeluser.setName(githubUserGTO.getName());
             modeluser.setAccount_id(String.valueOf(githubUserGTO.getId()));
             modeluser.setAvatar_url(githubUserGTO.getAvatar_url());
-            modeluser.setCreate_time(System.currentTimeMillis());
-            modeluser.setModify_time(modeluser.getCreate_time());
-            usermapper.insert(modeluser);
+            userService.insertorUpdate(modeluser);
+//            usermapper.insert(modeluser);
             httpServletResponse.addCookie(new Cookie("token",token1));
             System.out.println("this is token1 "+token1 );//成功加入cookie
             return "redirect:/";//redirect 返回的是地址
@@ -71,6 +73,19 @@ public class AuthorizeController {
         }
 
 
+    }
+
+    @GetMapping("/logout")
+    public  String  logout(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse){
+        httpServletRequest.getSession().removeAttribute("user");
+        httpServletRequest.getSession().removeAttribute("icon");
+        Cookie cookie = new Cookie("token", null);
+        cookie.setMaxAge(0);
+        httpServletResponse.addCookie(cookie);
+
+
+
+    return "redirect:/";
     }
 
 }

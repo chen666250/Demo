@@ -2,10 +2,7 @@ package com.example.demo.mapper;
 
 import com.example.demo.dto.GithubUserGTO;
 import com.example.demo.model.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface Usermapper {
@@ -17,4 +14,9 @@ public interface Usermapper {
 
     @Select(("select * from USERH where id =#{post_id}"))
     User findById(@Param("post_id") Integer post_id );
+    @Select(("select * from USERH where account_id =#{account_id}"))
+    User findByAccountID(@Param("account_id") String account_id );
+
+    @Update("update userh set name=#{name},token=#{token},modify_time=#{modify_time},avatar_url=#{avatar_url} where id=#{id}")
+    void update(User dbuser);
 }
