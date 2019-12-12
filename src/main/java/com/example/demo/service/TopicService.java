@@ -21,6 +21,7 @@ public class TopicService {
     private Usermapper usermapper;
 
     public   PageDto showall(Integer currentPage,Integer size,Integer isDes) {
+
         PageDto pageDto = new PageDto();
         Integer totalCount=topicMapper.countTopics();
         pageDto.setPage(totalCount,currentPage,size);
@@ -69,5 +70,8 @@ public class TopicService {
 
     public PageDto showbySearch(String searchcontent) {
         return null;
+    }
+    public  TopicDto findById(Integer topicid){
+       return topicMapper.findTopicbyID(topicid);
     }
 }

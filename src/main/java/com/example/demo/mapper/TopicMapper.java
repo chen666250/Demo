@@ -2,10 +2,8 @@ package com.example.demo.mapper;
 
 import com.example.demo.dto.TopicDto;
 import com.example.demo.model.Topic;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.example.demo.model.User;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -24,4 +22,7 @@ public interface TopicMapper {
 
     @Select("select * from topic where idtopic=#{topicid}")
     TopicDto findTopicbyID(Integer topicid);
+
+    @Update("update topic set topiccontext=#{topiccontext},tags=#{tags},modify_time=#{modify_time} where idtopic=${idtopic}")
+    int update(TopicDto topicDto);
 }

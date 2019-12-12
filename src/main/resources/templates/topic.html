@@ -8,7 +8,15 @@
     <script th:src="@{/jquery/jquery-3.0.0.min.js}"></script>
     <script th:src="@{twitter-bootstrap.js}"></script>
     <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
+    <script th:inline="javascript" type="text/javascript" charset="utf-8">
 
+
+        function modifyTopic(idtopic) {
+            javascript:window.location.href= "/modifyTopic/" + idtopic;
+        }
+
+
+    </script>
 
 
 
@@ -70,7 +78,7 @@
             </div>
              <hr>
              <span class="glyphicon glyphicon-wrench" aria-hidden="true"
-                   th:if="${session.user!=null&& session.user.getAccount_id()==TopicDto2.getCreatuser().getAccount_id()}">编辑</span>
+                   th:if="${session.user!=null&& session.user.getAccount_id()==TopicDto2.getCreatuser().getAccount_id()}" th:onclick="'javascript:modifyTopic('+${TopicDto2.getIdtopic()}+')'">编辑</span>
         </div>
         </div>
     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12" >

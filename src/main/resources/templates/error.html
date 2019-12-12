@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="../static/bootstrap/js/bootstrap.js"></script>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>CSG0男人工作室</title>
+    <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet"/>
+    <script th:src="@{/jquery/jquery-3.0.0.min.js}"></script>
+    <script th:src="@{twitter-bootstrap.js}"></script>
+    <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
+
+
+
+    <style>
+        .body {
+            background-color: #999999;
+
+        }
+
+        .container-fluid {
+            border: 0px solid;
+            border-radius: 25px;
+            -moz-border-radius: 25px;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: 30px;
+            margin-left: 30px;
+
+        }
+
+        .media-object {
+            width: 45px;
+            height: 45px;
+        }
+
+        .infos {
+            font-size: 12px;
+            font-weight: normal;
+            color: #737373;
+            float: left;
+            margin-right: 250px;
+        }
+
+        body{
+            background-image: url('./pic/404.jpg');
+
+            background-attachment:fixed;
+            background-position:center;
+        }
+
+        .main{
+            text-align: center; /*让div内部文字居中*/
+            border-radius: 20px;
+            width: 300px;
+            height: 350px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            color: white;
+        }
+
+    </style>
+
+</head>
+<body class="body" >
+<div  th:insert="~{naviFragement::topNavi}"></div>
+
+<div class="main"> <H1 ><a href="/" style="color: white">親愛的用戶，俺是你404爹爹。點俺回家咧。</a></H1>
+<h1 th:text="${Aerror}"></h1></div>
+
+</body>
+</html>
